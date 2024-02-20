@@ -2,6 +2,7 @@ import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs"
 import { errorHandler } from "../utils/error.js";
 export const signup=async(req,res,next)=>{
+ 
   
     
  
@@ -17,6 +18,7 @@ export const signup=async(req,res,next)=>{
 
     // we can also use create 
 
+
     const newuser=new User({username,email,password:hashedpassword});
    try{
     
@@ -26,6 +28,7 @@ export const signup=async(req,res,next)=>{
       message:"user created successfully",
     })
       
+    
 
    }
 
