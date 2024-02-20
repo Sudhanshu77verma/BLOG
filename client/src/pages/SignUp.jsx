@@ -20,8 +20,8 @@ function SignUp() {
     setloading(true)
     if(!formdata.email || !formdata.password || !formdata.username )
     {
-     setError('please fill out all fields')
-     return
+     return  setError('please fill out all fields')
+   
     }
     try {
           const res=await fetch('/api/auth/signup',{
@@ -33,15 +33,18 @@ function SignUp() {
           const data= await res.json();
           if(data.success===false)
           {
+              setloading(false)
              return setError(data.message)
           }
+      
          setloading(false);
          navigate('/sign-in');
-         
+
 
     } catch (error) {
      setError(data.message)
-     setloading(false) 
+     setloading(false) ;
+
     }
   }
   console.log( formdata)
@@ -100,7 +103,7 @@ function SignUp() {
             <Button className="w-full mt-4 mb-4" type="submit" disabled={loading} gradientDuoTone="purpleToPink">
              
             {
-              loading? ( 
+              loading ? ( 
                 <div>
                   <Spinner></Spinner> 
                   <span className="p-3">Loading...</span>

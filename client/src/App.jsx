@@ -7,6 +7,9 @@ import SignUp from './pages/SignUp.jsx'
 import Projects from './pages/Projects.jsx'
 import About from './pages/About.jsx'
 import Header from './components/Header.jsx'
+import Footcom from './components/Footcom.jsx'
+
+ 
 const App = () => {
   return (
    <BrowserRouter>
@@ -21,6 +24,8 @@ const App = () => {
 
 
   </Routes>
+
+    <Footcom></Footcom>
    </BrowserRouter>
   )
 }
