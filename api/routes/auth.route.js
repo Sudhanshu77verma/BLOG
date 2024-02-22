@@ -1,6 +1,6 @@
 import express from "express"
 
-import { signin, signup } from "../controller/auth.contoller.js";
+import { google, signin, signup } from "../controller/auth.contoller.js";
 
 
 const router=express.Router();
@@ -8,7 +8,7 @@ const router=express.Router();
 
 router.post('/signup',signup);
 router.post('/signin',signin)
-
+router.post('/google',google)
 
 
 
