@@ -75,7 +75,7 @@ export const signin=async(req,res,next)=>{
 }
 
 export const google= async(req,res,next)=>{
-  const {name,email,googlePhotoUrl}=req.body;
+  const {name,email}=req.body;
   try {
         const user=await User.findOne({email});
         if(user)
@@ -94,7 +94,7 @@ export const google= async(req,res,next)=>{
             
             email,
             password:hashedpassword,
-             profilePic:googlePhotoUrl
+            profilePic:req.body.Photo
           })
 
           await newUser.save();

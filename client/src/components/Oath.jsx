@@ -18,14 +18,14 @@ function Oath() {
         
   try {
        const resultFromGoogle=await signInWithPopup(auth,provider);
-        //  console.log(resultFromGoogle);
+         console.log(resultFromGoogle);
         const res=await fetch('/api/auth/google',{
             method:"Post",
             headers:{"Content-Type":"application/json"} ,
             body:JSON.stringify({
                 name:resultFromGoogle.user.displayName,
             email:resultFromGoogle.user.email,
-            googlePhotoUrl:resultFromGoogle.user.photoURL,
+           Photo:resultFromGoogle.user.photoURL,
             })
 
 
