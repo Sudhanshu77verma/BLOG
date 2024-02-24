@@ -27,7 +27,7 @@ function Dashboard() {
         <Dashbar></Dashbar>
       </div>
 
-      <div>
+      <div className='md:w-full'>
         {/* profile */}
         {
           tab=='profile' && <DashProfile></DashProfile>
