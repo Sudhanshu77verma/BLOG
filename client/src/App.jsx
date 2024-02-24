@@ -8,6 +8,7 @@ import Projects from './pages/Projects.jsx'
 import About from './pages/About.jsx'
 import Header from './components/Header.jsx'
 import Footcom from './components/Footcom.jsx'
+import { Privateroute } from './components/Privateroute.jsx'
 
  
 const App = () => {
@@ -19,7 +20,10 @@ const App = () => {
     <Route path='/about' element={<About></About>}></Route>
     <Route path='/sign-in' element={<SignIn></SignIn>}></Route>
     <Route path='/sign-up' element={<SignUp></SignUp>}></Route>
+    
+    <Route element={<Privateroute></Privateroute>}>
     <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
+    </Route>
     <Route path='/projects' element={<Projects></Projects>}></Route>
 
 
