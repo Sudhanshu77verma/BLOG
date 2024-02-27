@@ -7,43 +7,35 @@ import {useDispatch } from 'react-redux'
 import { signInSuccess } from '../redux/user/userSlice'
 import { useNavigate } from 'react-router-dom'
 
-function Oath() {
-    const auth=getAuth(app);
-    const dispatch=useDispatch();
-   const navigate=useNavigate();
+const OAuth = () => {
 
 
-    const handleGoogleClick=async()=>{
-        const provider= new GoogleAuthProvider();
-        
-  try {
-       const resultFromGoogle=await signInWithPopup(auth,provider);
-         console.log(resultFromGoogle);
+  const dispatch=useDispatch();
+const navigate =useNavigate();
+const handleGoogleClick = async(res)=>{
+    try{
+        const provider=new GoogleAuthProvider()
+        const auth=getAuth(app);
+        const result =await signInWithPopup(auth,provider);
         const res=await fetch('/api/auth/google',{
-            method:"Post",
-            headers:{"Content-Type":"application/json"} ,
-            body:JSON.stringify({
-                name:resultFromGoogle.user.displayName,
-            email:resultFromGoogle.user.email,
-           Photo:resultFromGoogle.user.photoURL,
-            })
-
-
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+          },
+          body:JSON.stringify({name:result.user.displayName,email:result.user.email,photo:result.user.photoURL})
         })
 
         const data=await res.json();
-        if(res.ok)
-        {
-           dispatch(signInSuccess(data));
-           navigate('/')
-        }
-     
-        
-  } catch (error) {
-     console.log(error);
-  }
-
+    dispatch(signInSuccess(data));
+navigate('/')
+  console.log(result);
+    }  catch(error)
+  
+    {
+     console.log("could not signin with google",error);
     }
+}
+
   return (
       
 
@@ -57,4 +49,4 @@ function Oath() {
   )
 }
 
-export default Oath
+export default OAuth

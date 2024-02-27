@@ -46,7 +46,7 @@ function Header() {
       {
         currentUser ? (
           <Dropdown arrowIcon={false} inline label={
-        <Avatar alt='user' img={currentUser.profilePic}> </Avatar>
+        <Avatar alt='user' img={currentUser.avatar}> </Avatar>
           }>
           
           <Dropdown.Header>

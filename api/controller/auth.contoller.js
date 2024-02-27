@@ -74,38 +74,46 @@ export const signin=async(req,res,next)=>{
   }
 }
 
-export const google= async(req,res,next)=>{
-  const {name,email}=req.body;
-  try {
-        const user=await User.findOne({email});
-        if(user)
-        {
-          const token= jwt.sign({id:user._id}, process.env.JWT_SECRET);
-          const {password,...rest}=user._doc;
-           res.status(200).cookie('access_token',token,{httpOnly:true})
-           .json(rest);
-        }
+export const google= async (req,res,next)=>{
+  try{
+const user= await User.findOne({email:req.body.email});
+if(user)
+{
 
-        else{
-          const generatedPassword=Math.random().toString(36).slice(-8);
-          const hashedpassword=bcryptjs.hashSync(generatedPassword,10);
-          const newUser=new User({
-            username:name.toLowerCase.split('')+Math.random().toString(9).slice(-4),
-            
-            email,
-            password:hashedpassword,
-            profilePic:req.body.Photo
-          })
-
-          await newUser.save();
-          const token=jwt.sign({id:newUser._id},process.env.JWT_SECRET);
-          const {password,...rest}=newUser._doc;
-          res.status(200).cookie("access_token",token,{httpOnly:true}).json(rest);
-        }
+  const token = jwt.sign({id:user._id },process.env.JWT_SECRET)
+  //removing password 
+  const {password:pass,...rest}=user._doc;
+  const options={
+   httpOnly:true
+  };
+  res.cookie('access_token', token,options)
+  .status(200).json(
+   rest
+  );
+}
+else{
+       const generatePassword=Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+       const hashedpassword = bcryptjs.hashSync(generatePassword,10);
+       const newuser= new User({username:req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4)
+       ,email:req.body.email,password:hashedpassword,
+      avatar:req.body.photo});
+      await newuser.save();
 
 
-  } catch (error) {
-     next(error);
+      const token = jwt.sign({id:newuser._id },process.env.JWT_SECRET)
+      //removing password 
+      const {password:pass,...rest}=newuser._doc;
+      const options={
+       httpOnly:true
+      };
+      res.cookie('access_token', token,options)
+      .status(200).json(
+       rest
+      );
+}
+  }catch(error)
+  {
+    next(error);
 
-  } 
+  }
 }

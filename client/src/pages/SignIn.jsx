@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux"
 import {toast} from "react-hot-toast"
 import { signInSuccess,signInFailure,signInStart } from "../redux/user/userSlice";
-import Oath from "../components/Oath";
+import OAuth from "../components/Oath";
 
 function SignIn() {
   const dispatch=useDispatch();
@@ -111,7 +111,7 @@ function SignIn() {
             }
             </Button>
            
-           <Oath></Oath>
+        <OAuth></OAuth>
 
           </form>
 

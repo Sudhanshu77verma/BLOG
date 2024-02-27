@@ -17,10 +17,11 @@ const userSchema= new mongoose.Schema({
         required:true,
      }
      ,
-     profilePic:{
+     avatar:{
       type:String,
       default:"https://w7.pngwing.com/pngs/184/113/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png"
-     }
+     },
+     
 }, 
 {timestamps:true}
 );
