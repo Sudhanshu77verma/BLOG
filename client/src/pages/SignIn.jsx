@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux"
+import {toast} from "react-hot-toast"
 import { signInSuccess,signInFailure,signInStart } from "../redux/user/userSlice";
 import Oath from "../components/Oath";
 
@@ -37,11 +38,13 @@ function SignIn() {
           });
           const data= await res.json();
           if(data.success===false)
-          {
+          { 
+           toast.error("Sign in Failed")
            return  dispatch(signInFailure(data.message));
           }
      
         dispatch(signInSuccess(data));
+        toast.success("Sign in Successfully")
         navigate('/')
     
 

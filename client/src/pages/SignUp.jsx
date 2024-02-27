@@ -2,7 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import {toast } from "react-hot-toast"
 function SignUp() {
   const navigate =useNavigate();
 
@@ -20,6 +20,8 @@ function SignUp() {
     setloading(true)
     if(!formdata.email || !formdata.password || !formdata.username )
     {
+      toast.error("Fill out all Fields")
+      setloading(false)
      return  setError('please fill out all fields')
    
     }
@@ -32,11 +34,13 @@ function SignUp() {
           });
           const data= await res.json();
           if(data.success===false)
-          {
+          {   
+            toast.error("Sign Up failed")
               setloading(false)
              return setError(data.message)
           }
-      
+         
+          toast.success("Sign Up Successfully")
          setloading(false);
          navigate('/sign-in');
 
