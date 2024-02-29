@@ -62,11 +62,13 @@ export const signin=async(req,res,next)=>{
   }
  
   const token=jwt.sign(
-{id:ValidUser._id,username:ValidUser},process.env.JWT_SECRET,{expiresIn:"7d"});
+{id:ValidUser._id,isAdmin:ValidUser.isAdmin},process.env.JWT_SECRET,{expiresIn:"7d"});
 
    const {password:pass ,...rest }=ValidUser._doc;
       res.status(200).cookie('access_token',token,{
-        httpOnly:true}).json(rest);
+        httpOnly:true, 
+       }
+      ).json(rest);
   
  
     
@@ -81,7 +83,7 @@ const user= await User.findOne({email:req.body.email});
 if(user)
 {
 
-  const token = jwt.sign({id:user._id },process.env.JWT_SECRET)
+  const token = jwt.sign({id:user._id , isAdmin:user.isAdmin},process.env.JWT_SECRET)
   //removing password 
   const {password:pass,...rest}=user._doc;
   const options={
@@ -101,7 +103,7 @@ else{
       await newuser.save();
 
 
-      const token = jwt.sign({id:newuser._id },process.env.JWT_SECRET)
+      const token = jwt.sign({id:newuser._id , isAdmin:newuser.isAdmin},process.env.JWT_SECRET)
       //removing password 
       const {password:pass,...rest}=newuser._doc;
       const options={
