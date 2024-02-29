@@ -2,6 +2,7 @@ import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs"
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken"
+
 export const signup=async(req,res,next)=>{
  
   
@@ -117,3 +118,4 @@ else{
 
   }
 }
+

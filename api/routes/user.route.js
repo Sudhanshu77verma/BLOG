@@ -1,5 +1,5 @@
 import express from "express"
-import { updateUser } from "../controller/user.controller.js";
+import { deleteuser, updateUser } from "../controller/user.controller.js";
 import { VerifyToken } from "../utils/Verifyuser.js";
 
 
@@ -12,7 +12,7 @@ router.get('/test',(req,res)=>{
 
 
 router.put('/update/:userId', VerifyToken, updateUser);
-
+router.delete('/delete/:userId',VerifyToken,deleteuser)
 
 
 
