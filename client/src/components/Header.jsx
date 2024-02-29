@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon,FaSun} from 'react-icons/fa'
-
+import { SignoutSuccess } from '../redux/user/userSlice'
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,23 @@ function Header() {
     const {theme}=useSelector((state)=>state.theme)
     console.log(theme)
     console.log(currentUser);
-
+    const handlesignout =async()=>{
+      try {
+        const  res= await fetch("/api/user/signout" , {
+          method:"POST"
+        });
+        const data=await res.json();
+        if(!res.ok)
+        {
+          console.log(data.message)
+        }
+        dispatch(SignoutSuccess())
+  
+      } catch (error) {
+         console.log(error.message)
+      }
+  
+    }
   return (
     <Navbar>
         <Link to={'/'} className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
@@ -57,7 +73,7 @@ function Header() {
           <Link to={'/dashboard?tab=profile'}>
            <Dropdown.Item>Profile</Dropdown.Item>
            <Dropdown.Divider></Dropdown.Divider>
-           <Dropdown.Item>Signout</Dropdown.Item>
+           <Dropdown.Item onClick={handlesignout}>Signout</Dropdown.Item>
           </Link>
           </Dropdown>
         ):( <Link to={'/sign-in'}>

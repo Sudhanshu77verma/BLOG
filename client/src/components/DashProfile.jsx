@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useRef } from "react";
 import {HiOutlineExclamationCircle} from "react-icons/hi"
 import { app } from "../firebase";
-import { DeleteFailure,DeleteSuccess,DeleteStart } from "../redux/user/userSlice";
+import { DeleteFailure,DeleteSuccess,DeleteStart, SignoutSuccess } from "../redux/user/userSlice";
 import {
   UpdateStart,
   UpdateSuccess,
@@ -18,6 +18,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 
@@ -136,13 +137,32 @@ const DashProfile = () => {
       const data = await res.json();
       if (!res.ok) {
         dispatch(UpdateFailure(data.message));
+        toast.error("Error in updation")
       } else {
         dispatch(UpdateSuccess(data));
+        toast.success("Update successfully")
       }
     } catch (error) {
       dispatch(UpdateFailure(error.message));
     }
-  };
+  };  
+  const handlesignout =async()=>{
+    try {
+      const  res= await fetch("/api/user/signout" , {
+        method:"POST"
+      });
+      const data=await res.json();
+      if(!res.ok)
+      {
+        console.log(data.message)
+      }
+      dispatch(SignoutSuccess())
+
+    } catch (error) {
+       console.log(error.message)
+    }
+
+  }
   return (
     <div className="max-w-lg mx-auto w-full">
       <h1 className=" text-center font-semibold text-3xl my-5">Profile</h1>
@@ -210,7 +230,7 @@ const DashProfile = () => {
           Delete Account
         </span>
 
-        <span className="cursor-pointer"> Sign out</span>
+        <span onClick={handlesignout} className="cursor-pointer"> Sign out</span>
       </div>
 
       <Modal
