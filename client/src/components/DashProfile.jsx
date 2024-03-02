@@ -17,7 +17,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
@@ -28,7 +28,7 @@ const DashProfile = () => {
   const [updateusersuccess, setupdateusersuccces] = useState(false);
   const [updateusererror, setupdateusererror] = useState(false);
   const [showModal, setshowmodal] = useState(false);
-  const { currentUser,error } = useSelector((state) => state.user);
+  const { currentUser,error,loading } = useSelector((state) => state.user);
   const [imagefile, setFile] = useState(null);
   const [formdata, setformdata] = useState({});
   const fileRef = useRef();
@@ -217,11 +217,22 @@ const DashProfile = () => {
           type="submit"
           gradientDuoTone="purpleToBlue"
           outline
-          // disabled={loading || imageFileUploading}
+          disabled={loading }
         >
-          {/* {loading ? 'Loading...' : 'Update'} */}
-          update
+         {loading ? 'Loading...' : 'Update'} 
+      
         </Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}>
+            <Button type='button' className="w-full" gradientDuoTone="purpleToPink" outline>
+             
+             Create a  Post
+                
+            </Button>
+            </Link>
+          )
+        }
       </form>
 
       <div className="flex flex-row justify-between mt-4 text-red-500">
