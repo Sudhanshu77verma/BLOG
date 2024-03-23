@@ -11,6 +11,7 @@ import Footcom from './components/Footcom.jsx'
 import { Privateroute } from './components/Privateroute.jsx'
 import { OnlyAdminPrivateRoute } from './components/OnlyAdminPrivateRoute.jsx'
 import CreatePost from './pages/CreatePost.jsx'
+import UpdatePost from './pages/UpdatePost.jsx'
 
  
 const App = () => {
@@ -29,6 +30,8 @@ const App = () => {
 
     <Route element={<OnlyAdminPrivateRoute></OnlyAdminPrivateRoute>}>
       <Route  path='/create-post' element={<CreatePost></CreatePost>}></Route>
+      <Route  path='/update-post/:postId' element={<UpdatePost></UpdatePost>}></Route>
+
     </Route>
     <Route path='/projects' element={<Projects></Projects>}></Route>
    

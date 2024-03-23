@@ -3,43 +3,26 @@ import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-
-function Dashposts() {
+import {FaCheck, FaTimes} from "react-icons/fa"
+function DashUser() {
  const {currentUser} = useSelector((state)=>state.user)
- const [userposts,setuserposts]=useState([]);
+ const [user,setusers]=useState([]);
  const [showmore,setshowmore]= useState(true)
 const [showmodal,setshowmodal] =useState(false)
 const[postidtodelete,setpostiddelete]=useState('')
- console.log(userposts)
+ console.log(user)
 //  console.log(currentUser)
-const deletehandler=async()=>{
-  setshowmodal(false)
-  try {
-  const res= await fetch(`/api/post/deletepost/${postidtodelete}/${currentUser._id}`,{
-    method:'DELETE'
-  })
-  const data= await res.json();
-  if(!res.ok)
-  {
-    console.log(data.message)
-  }
-  else{
-    setuserposts((prev)=> prev.filter((post)=>post._id !== postidtodelete))
-  }
-  } catch (error) {
-    console.log(error.message)
-  }
-}
+
 const handleshowmore = async()=>{
-    const startindex= userposts.length;
+    const startindex= user.length;
     try{
-   const result=await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startindex}`)
+   const result=await fetch(`/api/user/getusers?startindex=${startindex}`)
    const data= await result.json();
   
    if(result.ok)
    {
     
-    setuserposts((prev)=>[...prev, ...data.posts])
+    setusers((prev)=>[...prev, ...data.users])
     if(data.posts.length<9)
     {
       setshowmore(false)
@@ -51,16 +34,19 @@ const handleshowmore = async()=>{
     }
 
 }
+const handleDeletePerson= async()=>{
+
+}
  useEffect(()=>{
     const fetchposts =async()=>{
         try{
-            const res=await fetch(`/api/post/getposts?userId=${currentUser._id}`)
+            const res=await fetch(`/api/user/getusers`)
             const data=await res.json();
             // console.log(data)
         if(res.ok)
         {
-            setuserposts(data.posts)
-            if(data.posts.length<9)
+            setusers(data.users)
+            if(data.users.length<9)
             {
               setshowmore(false)
             }
@@ -79,52 +65,55 @@ const handleshowmore = async()=>{
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100  scrollbar-thumb-slate-500'>
       {
-        currentUser.isAdmin && userposts.length>0 ? (
+        currentUser.isAdmin && user.length>0 ? (
           <div>
             <Table>
-              <TableHead>
-              <Table.HeadCell> Date Updated</Table.HeadCell>
-              <Table.HeadCell>Post image</Table.HeadCell>
-              <Table.HeadCell> Post Title</Table.HeadCell>
-              <Table.HeadCell> Category</Table.HeadCell>
+              <TableHead >
+              <Table.HeadCell> Date Created</Table.HeadCell>
+              <Table.HeadCell>User Image</Table.HeadCell>
+
+              <Table.HeadCell> Username</Table.HeadCell>
+              <Table.HeadCell> Email</Table.HeadCell>
+              <Table.HeadCell> Admin</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
-              <Table.HeadCell>Edit</Table.HeadCell>
+           
               </TableHead>
 
               {
-                userposts.map((post)=>(
+                user.map((person,index)=>(
                   
-                  <Table.Body key={post._id}>
+                  <Table.Body key={index}>
                  <Table.Row>
                   <Table.Cell>
-                    {new Date(post.updatedAt).toLocaleDateString()}
+                    {new Date(person.createdAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/post/${post.slug}`}>
-                      <img src={post.image} alt="" className='w-20 object-cover bg-gray-200' />
-                    </Link>
+
+                      <img src={person.avatar} alt="" className='w-20 object-cover bg-gray-200 rounded-full' />
+                  
                   </Table.Cell>
                   <Table.Cell className=' font-bold'>
-                    {post.title}
+                    {person.username}
                   </Table.Cell>
                  
                   <Table.Cell>
-                   {post.category}
+                   {person.email}
+                  </Table.Cell>
+
+                  <Table.Cell>
+                    {person.isAdmin ? (<FaCheck className='text-green-500'></FaCheck>):(<FaTimes className='text-red-500'></FaTimes>)}
                   </Table.Cell>
                    <Table.Cell className='text-red-500 hover:underline cursor-pointer'> <span onClick={()=>
                    {
                     setshowmodal(true);
-                    setpostiddelete(post._id)
+                    setpostiddelete(person._id)
                    }
                      }>
                       Delete
                     </span></Table.Cell>
 
-                    <Table.Cell>
-                   <Link className='text-teal-500 hover:underline cursor-pointer ' to={`/update-post/${post._id}`}>
-                    Edit
-                   </Link>
-                    </Table.Cell>
+                   
+                  
                  </Table.Row>
                   </Table.Body>
                 )
@@ -152,7 +141,7 @@ const handleshowmore = async()=>{
             <HiOutlineExclamationCircle className="h-14 w-32 text-gray-400 dark:text-gray-200 mb-4 mx-auto"></HiOutlineExclamationCircle>
             <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this post </h3>
             <div className="flex justify-between">
-              <Button color="failure" onClick={deletehandler}> Yes , I'm sure</Button>
+              <Button color="failure" onClick={handleDeletePerson} > Yes , I'm sure</Button>
               <Button color="gray" onClick={()=>setshowmodal(false)}> No, cancel</Button>
             </div>
           </div>
@@ -163,4 +152,4 @@ const handleshowmore = async()=>{
   )
 }
 
-export default Dashposts
+export default DashUser
