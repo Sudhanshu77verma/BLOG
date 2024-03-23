@@ -1,5 +1,6 @@
-import { Table, TableHead } from 'flowbite-react';
+import { Button, Modal, Table, TableHead } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 
@@ -7,10 +8,28 @@ function Dashposts() {
  const {currentUser} = useSelector((state)=>state.user)
  const [userposts,setuserposts]=useState([]);
  const [showmore,setshowmore]= useState(true)
-
+const [showmodal,setshowmodal] =useState(false)
+const[postidtodelete,setpostiddelete]=useState('')
  console.log(userposts)
 //  console.log(currentUser)
-
+const deletehandler=async()=>{
+  setshowmodal(false)
+  try {
+  const res= await fetch(`/api/post/deletepost/${postidtodelete}/${currentUser._id}`,{
+    method:'DELETE'
+  })
+  const data= await res.json();
+  if(!res.ok)
+  {
+    console.log(data.message)
+  }
+  else{
+    setuserposts((prev)=> prev.filter((post)=>post._id !== postidtodelete))
+  }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 const handleshowmore = async()=>{
     const startindex= userposts.length;
     try{
@@ -85,14 +104,19 @@ const handleshowmore = async()=>{
                       <img src={post.image} alt="" className='w-20 object-cover bg-gray-200' />
                     </Link>
                   </Table.Cell>
-                  <Table.Cell className='font-semibold font-bold'>
+                  <Table.Cell className=' font-bold'>
                     {post.title}
                   </Table.Cell>
                  
                   <Table.Cell>
                    {post.category}
                   </Table.Cell>
-                   <Table.Cell className='text-red-500 hover:underline cursor-pointer'> <span>
+                   <Table.Cell className='text-red-500 hover:underline cursor-pointer'> <span onClick={()=>
+                   {
+                    setshowmodal(true);
+                    setpostiddelete(post._id)
+                   }
+                     }>
                       Delete
                     </span></Table.Cell>
 
@@ -116,6 +140,25 @@ const handleshowmore = async()=>{
             </div>
         ):(<p> You have no post to show </p>)
       }
+       <Modal
+        show={showmodal}
+        onClose={() => setshowmodal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header>
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-32 text-gray-400 dark:text-gray-200 mb-4 mx-auto"></HiOutlineExclamationCircle>
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this post </h3>
+            <div className="flex justify-between">
+              <Button color="failure" onClick={deletehandler}> Yes , I'm sure</Button>
+              <Button color="gray" onClick={()=>setshowmodal(false)}> No, cancel</Button>
+            </div>
+          </div>
+        </Modal.Body>
+        </Modal.Header>
+      </Modal>
     </div>
   )
 }

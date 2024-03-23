@@ -28,7 +28,7 @@ function Dashboard() {
         <Dashbar></Dashbar>
       </div>
 
-      <div >
+      <div  >
         {/* profile */}
         {
           tab=='profile' && <DashProfile></DashProfile>
