@@ -9,7 +9,7 @@ function DashUser() {
  const [user,setusers]=useState([]);
  const [showmore,setshowmore]= useState(true)
 const [showmodal,setshowmodal] =useState(false)
-const[postidtodelete,setpostiddelete]=useState('')
+const[usertodelete,setUsertoDelete]=useState('')
  console.log(user)
 //  console.log(currentUser)
 
@@ -23,7 +23,7 @@ const handleshowmore = async()=>{
    {
     
     setusers((prev)=>[...prev, ...data.users])
-    if(data.posts.length<9)
+    if(data.users.length<9)
     {
       setshowmore(false)
     }
@@ -35,7 +35,23 @@ const handleshowmore = async()=>{
 
 }
 const handleDeletePerson= async()=>{
-
+   try {
+       const res= await fetch(`/api/user/delete/${usertodelete}`, 
+        {
+            method:'DELETE'
+        })
+        const data=res.json();
+        if(res.ok)
+        {
+            setusers((prev)=> prev.filter((person)=> person._id !== usertodelete))
+            setshowmodal(false)
+        }
+        else {
+            console.log(data.message)
+        }
+   } catch (error) {
+     console.log(error.message)
+   }
 }
  useEffect(()=>{
     const fetchposts =async()=>{
@@ -106,7 +122,7 @@ const handleDeletePerson= async()=>{
                    <Table.Cell className='text-red-500 hover:underline cursor-pointer'> <span onClick={()=>
                    {
                     setshowmodal(true);
-                    setpostiddelete(person._id)
+                setUsertoDelete(person._id)
                    }
                      }>
                       Delete
