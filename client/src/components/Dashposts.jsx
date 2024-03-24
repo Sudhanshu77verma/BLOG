@@ -104,9 +104,12 @@ const handleshowmore = async()=>{
                       <img src={post.image} alt="" className='w-20 object-cover bg-gray-200' />
                     </Link>
                   </Table.Cell>
+                  
+              
                   <Table.Cell className=' font-bold'>
                     {post.title}
                   </Table.Cell>
+                 
                  
                   <Table.Cell>
                    {post.category}

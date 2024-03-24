@@ -16,11 +16,11 @@ import { useSelector } from "react-redux";
 
 const UpdatePost = () => {
     const {postId}= useParams();
-    // console.log(postId)
+    console.log(postId)
   const [imageUploadProgress, setimageProgrss] = useState(null);
   const [imageUploadError, setimageuploaderror] = useState(null);
   const [formdata, setformdata] = useState({});
-//   console.log(formdata)
+  console.log(formdata)
   const [file, setfile] = useState(null);
   // console.log(imageUploadProgress)
 const navigate = useNavigate();
@@ -54,7 +54,7 @@ try {
 
 
  try {
-  const res =await fetch(`/api/post/updatepost/${formdata._id}/${currentUser._id}`, {
+  const res =await fetch(`/api/post/updatepost/${postId}/${currentUser._id}`, {
     method:'PUT',
     headers:{
       'Content-Type' : 'application/json',
@@ -80,6 +80,7 @@ try {
  }
 
   }
+
   const handleuploadImage = async () => {
     try {
       if (!file) {
@@ -129,7 +130,7 @@ try {
           
             onChange={(e)=>
             setformdata({...formdata,[e.target.id]:e.target.value})}
-            value={formdata.title || " " }
+            value={formdata.title  }
           ></TextInput>
 
           <Select 
