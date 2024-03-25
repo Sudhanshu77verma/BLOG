@@ -1,13 +1,16 @@
 // import { Spinner } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import Spinnner from '../components/Spinnner';
-import User from '../../../api/model/user.model';
+
+
 import { Button, Spinner } from 'flowbite-react';
+import CallToSection from '../components/CallToSection';
+import Comment from '../components/Comment';
 
 function PostPage() {
 
     const {postslug} =useParams();
+    // console.log(postslug)
     const [loading , setloading] =useState(true);
     const [error,seterror]=useState(false)
     const[post,setpost]=useState(null);
@@ -29,7 +32,7 @@ function PostPage() {
                 seterror(true);
                 return;
             }
-            else {
+            if(res.ok) {
                 setpost(data.posts[0]);
                 setloading(false);
                 seterror(false)
@@ -70,6 +73,14 @@ function PostPage() {
      <div className='p-3 max-w-2xl mx-auto mt-4 w-full post-content' dangerouslySetInnerHTML={{__html:post && post.content}}> 
 
      </div>
+
+     <div className='max-w-4xl mx-auto '>
+        <CallToSection></CallToSection>
+     </div>
+
+ <div> <Comment postId={post._id}></Comment></div>
+
+
      </main>
   )
 }

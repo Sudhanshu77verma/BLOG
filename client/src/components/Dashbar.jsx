@@ -98,7 +98,7 @@ const Dashbar = () => {
           )}
           <Sidebar.Item
             icon={HiArrowSmRight}
-            className='cursor-pointer'
+            className='cursor-pointer '
             onClick={handlesignout}
           >
             Sign Out
