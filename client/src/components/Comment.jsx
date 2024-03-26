@@ -1,15 +1,39 @@
 
 import { Alert, Button, TextInput, Textarea } from 'flowbite-react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
+import Singlecomment from './Singlecomment';
 
 function Comment( {postId}) {
     const{currentUser}= useSelector(state=>state.user);
      const [comment,setcomment]=useState('')
      const [error,setcommentError]=useState(null)
     // console.log(currentUser)
+   const [showcomments,setshowcomments] =useState([])
+   console.log(showcomments)
+    useEffect(()=>{
 
+        const getcomments= async()=>{
+            try {
+                 
+                const res= await fetch(`/api/comment/getPostComments/${postId}`)
+                const data=await res.json();
+
+                if(res.ok)
+                {
+                    setshowcomments(data)
+                
+                }
+
+            } catch (error) {
+                 
+                console.log(error.message)
+            }
+        } 
+        getcomments();
+         
+    },[postId])
     const handlesubmit= async(e)=>
     {
         e.preventDefault();
@@ -30,7 +54,8 @@ function Comment( {postId}) {
                if(res.ok)
                {
                 setcomment('');
-                 setcommentError(null)
+                 setcommentError(null);
+                 setshowcomments([data,...comment])
                }
             
         } catch (error) {
@@ -82,6 +107,29 @@ function Comment( {postId}) {
 
            
             )
+        }
+        {
+              showcomments.length===0 ? (<p className='text-sm my-5'>No comments Yet</p>):(
+                <>
+               <div> 
+                 <div className='flex flex-row gap-3 mt-3 items-center' >
+                    <p> Comments </p>
+                    
+            
+                <p className='border border-gray-500 py-1 px-2 '> {showcomments.length}</p>
+                </div> 
+                 
+            
+                
+              </div>
+            {
+                showcomments.map((singlecomment)=>(
+                    <Singlecomment key={singlecomment._id} singlecomment={singlecomment}></Singlecomment>
+                ))
+            }
+              </>
+              
+              )
         }
 
     </div>
