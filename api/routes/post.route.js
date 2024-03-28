@@ -10,5 +10,6 @@ const router=express.Router();
 router.post('/create',VerifyToken,create);
 router.get('/getposts',getposts);
 router.delete('/deletepost/:postId/:userId',VerifyToken,deletepost);
-router.put('/updatepost/:postId/:userId', VerifyToken, updateposts)
+router.put('/updatepost/:postId/:userId', VerifyToken, updateposts);
+
 export default router;

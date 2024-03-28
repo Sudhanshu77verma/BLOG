@@ -5,12 +5,14 @@ import { Link, useParams } from 'react-router-dom'
 
 import { Button, Spinner } from 'flowbite-react';
 import CallToSection from '../components/CallToSection';
-import Comment from '../components/Comment';
+import CommentSection from '../components/CommentSection';
+
 
 function PostPage() {
 
     const {postslug} =useParams();
     // console.log(postslug)
+  
     const [loading , setloading] =useState(true);
     const [error,seterror]=useState(false)
     const[post,setpost]=useState(null);
@@ -78,7 +80,7 @@ function PostPage() {
         <CallToSection></CallToSection>
      </div>
 
- <div> <Comment postId={post._id}></Comment></div>
+ <div> <CommentSection postId={post._id}></CommentSection></div>
 
 
      </main>

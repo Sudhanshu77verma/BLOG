@@ -12,7 +12,7 @@ const commentSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
-    Likes:{
+    likes:{
         type:Array,
         default:[],
     },
@@ -25,4 +25,4 @@ const commentSchema= new mongoose.Schema({
 
 
 const Comment= mongoose.model('Comment',commentSchema);
-export default Comment
+export default Comment;

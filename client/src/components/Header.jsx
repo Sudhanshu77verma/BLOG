@@ -35,7 +35,7 @@ function Header() {
   return (
     <Navbar>
         <Link to={'/'} className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
-            <span className='px-1 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white mr-1 '> Sudhanshu's</span>
+            <span className='px-1 py-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg text-white mr-1 '> Sudhanshu's</span>
             Blog
         </Link> 
 
