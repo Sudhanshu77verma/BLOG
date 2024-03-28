@@ -6,19 +6,39 @@ import { Link, useParams } from 'react-router-dom'
 import { Button, Spinner } from 'flowbite-react';
 import CallToSection from '../components/CallToSection';
 import CommentSection from '../components/CommentSection';
+import PostCard from '../components/PostCard';
 
 
 function PostPage() {
 
     const {postslug} =useParams();
     // console.log(postslug)
-  
+    const [recentPost ,setRecentPost]= useState(null)
+    console.log(recentPost)
     const [loading , setloading] =useState(true);
     const [error,seterror]=useState(false)
     const[post,setpost]=useState(null);
     console.log(post)
 
     console.log(postslug)
+    
+    useEffect(()=>{
+        try {
+           const fetchrecentPost = async()=>{
+            const res= await fetch(`/api/post/getposts?limit=3`);
+            const data= await res.json();
+            if(res.ok)
+            {
+                setRecentPost(data.posts);
+    
+            }
+           };
+           fetchrecentPost()
+        } catch (error) {
+             console.log(error)
+        }
+      
+        },[])
     useEffect(()=>{
     const fetchpost= async()=>{
      
@@ -55,6 +75,8 @@ function PostPage() {
             </div>
         )
     }
+  
+
 
     return (
 
@@ -82,7 +104,20 @@ function PostPage() {
 
  <div> <CommentSection postId={post._id}></CommentSection></div>
 
+<div className='flex flex-col justify-center items-center mb-5'>
+    <h1>Recent Articles</h1>
+</div>
 
+<div className='flex flex-wrap '>
+    {
+        recentPost && 
+        (
+            recentPost.map((post)=>(
+            <PostCard key={post._id} post={post}></PostCard>
+            ))
+        )
+    }
+</div>
      </main>
   )
 }

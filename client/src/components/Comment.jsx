@@ -109,12 +109,11 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               >
                 <FaThumbsUp className='text-sm' />
               </button>
-              <p className='text-gray-400'>
-                {comment.numberOfLikes > 0 &&
-                  comment.numberOfLikes +
-                    ' ' +
-                    (comment.numberOfLikes === 1 ? 'like' : 'likes')}
-              </p>
+            
+            <div className='flex flex-row items-center gap-1 text-gray-400'>
+               <p> {comment.numberOfLikes}</p>
+                <p> { comment.numberOfLikes > 0 ? ('Likes') : ('Like')}</p>
+            </div>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
                   <>
