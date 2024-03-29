@@ -104,11 +104,11 @@ function PostPage() {
 
  <div> <CommentSection postId={post._id}></CommentSection></div>
 
-<div className='flex flex-col justify-center items-center mb-5'>
-    <h1>Recent Articles</h1>
-</div>
 
-<div className='flex flex-wrap '>
+    <h1 className='text-center font-bold uppercase text-2xl  shadow-md m-36'>Recent Articles</h1>
+
+
+<div className=' max-w-6xl mx-auto flex gap-3 flex-col md:flex-row'>
     {
         recentPost && 
         (
@@ -118,6 +118,7 @@ function PostPage() {
         )
     }
 </div>
+
      </main>
   )
 }
