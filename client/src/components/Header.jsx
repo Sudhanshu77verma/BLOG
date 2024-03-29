@@ -55,7 +55,7 @@ function Header() {
        
         <Button className='w-12 h-10  sm:inline' color='gray' pill onClick={()=>dispatch(toggleTheme())}>
         {
-       theme==='light'?(<FaMoon></FaMoon>) : (<FaSun></FaSun>)
+       theme ==='light'?(<FaMoon></FaMoon>) : (<FaSun></FaSun>)
         }
         </Button>
         <div className='flex gap-2 md:order-2'> 
@@ -90,6 +90,7 @@ function Header() {
                 <Link to={'/'}>
                     Home
                 </Link>
+                 
                  
             </Navbar.Link>
 
