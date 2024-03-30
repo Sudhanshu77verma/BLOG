@@ -1,20 +1,39 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon,FaSun} from 'react-icons/fa'
 import { SignoutSuccess } from '../redux/user/userSlice'
-import { useLocation } from 'react-router-dom'
+import { useLocation ,useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeslice'
+
 function Header() {
+  const navigate= useNavigate()
     const path=useLocation().pathname;
     const dispatch=useDispatch();
     const {currentUser}= useSelector((state)=>state.user);
     const {theme}=useSelector((state)=>state.theme)
-    console.log(theme)
-    console.log(currentUser);
+    const [searchTerm,setSearchTerm]= useState('')
+
+    console.log(searchTerm)
+    const location = useLocation()
+    // console.log(theme)
+    
+
+    // console.log(currentUser);
+   
+    useEffect(()=>{
+
+const URLParams= new URLSearchParams(location.search)
+     const searchTermUrl= URLParams.get('searchTerm')
+     if(searchTermUrl)
+     {
+      setSearchTerm(searchTermUrl)
+     }
+  
+    } , [location.search]) 
     const handlesignout =async()=>{
       try {
         const  res= await fetch("/api/user/signout" , {
@@ -32,6 +51,15 @@ function Header() {
       }
   
     }
+
+    const handlesubmit= (e)=>{
+      e.preventDefault();
+      const URlParams= new URLSearchParams(location.search)
+      URlParams.set('searchTerm',searchTerm)
+     const searchQuery= URlParams.toString();
+     navigate(`/search?${searchQuery}`)
+
+    }
   return (
     <Navbar>
         <Link to={'/'} className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
@@ -39,20 +67,20 @@ function Header() {
             Blog
         </Link> 
 
-        <form>
-            <TextInput
+        <form onSubmit={handlesubmit} className='flex gap-2'>
+            <TextInput 
             type='text' placeholder='Search...'
-            rightIcon={AiOutlineSearch} 
-            className='hidden lg:inline'>
+            className='hidden  sm:inline'
+     defaultValue={searchTerm}
+            onChange={(e)=>setSearchTerm(e.target.value)}>
             
             </TextInput>
-        </form>
 
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+      <Button type='submit' className='w-12 h-10 hidden sm:inline' color='gray' pill>
         <AiOutlineSearch/>
        </Button>
        
-       
+       </form>
         <Button className='w-12 h-10  sm:inline' color='gray' pill onClick={()=>dispatch(toggleTheme())}>
         {
        theme ==='light'?(<FaMoon></FaMoon>) : (<FaSun></FaSun>)
@@ -91,7 +119,7 @@ function Header() {
                     Home
                 </Link>
                  
-                 
+
             </Navbar.Link>
 
             <Navbar.Link active={path ==='/about'} as={'div'} >

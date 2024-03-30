@@ -164,11 +164,11 @@ const DashProfile = () => {
 
   }
   return (
-    <div className="max-w-lg mx-auto p-3 w-full">
+    <div className=" w-96 mx-auto md:flex flex-col items-center">
       <h1 className=" text-center font-semibold text-3xl my-5">Profile</h1>
-      <form onSubmit={handlesubmit} className="flex flex-col gap-4">
+      <form onSubmit={handlesubmit} className="flex flex-col gap-4 w-full">
         <input
-          type="file"
+          type="file" 
           accept="image/*"
           hidden
           onChange={handleimagechange}
@@ -235,7 +235,7 @@ const DashProfile = () => {
         }
       </form>
 
-      <div className="flex flex-row justify-between mt-4 text-red-500">
+      <div className=" w-full mt-5 flex flex-row justify-between text-red-500">
         <span onClick={() => setshowmodal(true)} className="cursor-pointer">
           {" "}
           Delete Account

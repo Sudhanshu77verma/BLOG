@@ -22,6 +22,7 @@ const [lastmonthuser,setlastmonthuser] =useState(0)
 const [lastmonthpost,setlastmonthpost] = useState(0)
 const [lastmontcomment,setlastmonthcomment]=useState(0)
 
+
  useEffect(()=>{
     const fetchuser = async()=>{
     try {

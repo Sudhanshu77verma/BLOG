@@ -31,7 +31,7 @@ function Dashboard() {
         <Dashbar></Dashbar>
       </div>
 
-      <div  >
+      <div className='md:mx-auto'  >
         {/* profile */}
         {
           tab=='profile' && <DashProfile></DashProfile>

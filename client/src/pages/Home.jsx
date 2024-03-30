@@ -41,15 +41,13 @@ useEffect(()=>{
     <div className='p-3 bg-amber-100 dark:bg-slate-700'> 
       <CallToSection></CallToSection>
     </div>
-    
-    <div className=' mx-auto p-3 flex flex-col gap-8 py-7'> 
 
     {
       posts && posts.length > 0 && 
         (
-             <div className=' flex flex-col items-center gap-4 '>
-               <h2 className='text-2xl font-bold  '>Recent Posts</h2>
-                <div className='max-w-6xl md:flex flex-wrap gap-4'> 
+             <div className='  flex flex-col items-center justify-center gap-7 mt-6  '>
+               <h2 className=' font-bold text-4xl    '>Recent Posts</h2>
+                <div className='max-w-screen mx-auto flex flex-wrap items-center justify-center gap-5  '> 
               {
                   posts.map((post)=>(
             
@@ -57,11 +55,11 @@ useEffect(()=>{
               ))}
               </div>
 
-              <Link to={'/search'} className='text-lg text-teal-500 hover:underline text-center'> VIEW ALL POSTS </Link>
+              <Link to={'/search'} className='text-lg text-teal-500 hover:underline hover:text-yellow-400 text-center mb-3 '> VIEW ALL POSTS </Link>
              </div>
         )
 }
-</div>
+
     </div>
   )
 }
