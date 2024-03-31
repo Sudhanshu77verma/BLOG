@@ -8,7 +8,7 @@ function DashComments() {
  const {currentUser} = useSelector((state)=>state.user)
  const [comments,setcomments]=useState([]);
  console.log(comments)
- const [showmore,setshowmore]= useState(true)
+ const [showmore,setshowmore]= useState(false)
 const [showmodal,setshowmodal] =useState(false)
 const[commentIdtoDelete,seCommentIdtoDelete]=useState('')
 
@@ -81,7 +81,7 @@ const handleDeleteComment= async()=>{
  } ,
  [currentUser._id])
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100  scrollbar-thumb-slate-500'>
+    <div className='table-auto overflow-x-scroll md:overflow-x-hidden  md:mx-auto md:pt-4 pr-20'>
       {
         currentUser.isAdmin && comments.length>0 ? (
           <div>
@@ -146,7 +146,7 @@ const handleDeleteComment= async()=>{
               )
             }
             </div>
-        ):(<p> You have no Comment to show </p>)
+        ):(<p className='text-2xl text-gray-500 text-center '> You have no Comment to show </p>)
       }
        <Modal
         show={showmodal}

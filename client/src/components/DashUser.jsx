@@ -16,7 +16,7 @@ const[usertodelete,setUsertoDelete]=useState('')
 const handleshowmore = async()=>{
     const startindex= user.length;
     try{
-   const result=await fetch(`/api/user/getusers?startindex=${startindex}`)
+   const result=await fetch(`/api/user/getusers?startIndex=${startindex}`)
    const data= await result.json();
   
    if(result.ok)
@@ -79,7 +79,7 @@ const handleDeletePerson= async()=>{
  } ,
  [currentUser._id])
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100  scrollbar-thumb-slate-500'>
+    <div className='table-auto overflow-x-scroll md:mx-auto md:overflow-x-hidden pt-4 pr-20 '>
       {
         currentUser.isAdmin && user.length>0 ? (
           <div>
@@ -143,7 +143,7 @@ const handleDeletePerson= async()=>{
               )
             }
             </div>
-        ):(<p> You have no post to show </p>)
+        ):(<p className='text-2xl text-slate-500 text-center overflow-x-hidden'> You have no post to show </p>)
       }
        <Modal
         show={showmodal}

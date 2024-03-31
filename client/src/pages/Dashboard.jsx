@@ -47,9 +47,13 @@ function Dashboard() {
       {
         tab === 'users' && <DashUser></DashUser>
       }
+
+
+      <div className='md:mx-auto'>
       {
         tab ==='comments' && <DashComments/>
       }
+      </div>
 {
   tab==="dash"  && <DashboardComp></DashboardComp>
 }

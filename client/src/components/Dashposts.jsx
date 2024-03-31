@@ -77,7 +77,7 @@ const handleshowmore = async()=>{
  } ,
  [currentUser._id])
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100  scrollbar-thumb-slate-500'>
+    <div className='table-auto overflow-x-scroll md:mx-auto md:overflow-x-hidden md:pt-8 md:pr-32 '>
       {
         currentUser.isAdmin && userposts.length>0 ? (
           <div>
@@ -141,7 +141,7 @@ const handleshowmore = async()=>{
               )
             }
             </div>
-        ):(<p> You have no post to show </p>)
+        ):(<p className='text-center pl-0 md:text-slate-500 text-2xl'> You have no post to show </p>)
       }
        <Modal
         show={showmodal}
