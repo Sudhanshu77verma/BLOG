@@ -35,7 +35,7 @@ function SignUp() {
           const data= await res.json();
           if(data.success===false)
           {   
-            toast.error("Sign Up failed")
+            toast.error(data.message)
               setloading(false)
              return setError(data.message)
           }
@@ -122,13 +122,7 @@ function SignUp() {
             <Link to={'/sign-in'} className="text-blue-400"> Sign In</Link>
           </div>
 
-          {
-            error && (
-              <Alert className="mt-3 bg-red-100">
-                   <p> {error}</p>
-              </Alert>
-            )
-          }
+        
 
 
         </div>

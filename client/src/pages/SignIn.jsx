@@ -24,8 +24,8 @@ function SignIn() {
     dispatch(signInStart())
     if(!formdata.email || !formdata.password )
     {
-     return dispatch(signInFailure('please fill all the fields'))
-   
+     dispatch(signInFailure('please fill all the fields'))
+      return;
     }
     try {
       dispatch(signInStart());
@@ -39,7 +39,7 @@ function SignIn() {
           const data= await res.json();
           if(data.success===false)
           { 
-           toast.error("Sign in Failed")
+           toast.error(data.message)
            return  dispatch(signInFailure(data.message));
           }
      
@@ -50,7 +50,7 @@ function SignIn() {
 
     } catch (error) {
  dispatch(signInFailure(error))
-
+    
     }
   }
   console.log( formdata)
@@ -120,13 +120,7 @@ function SignIn() {
             <Link to={'/sign-up'} className="text-blue-400"> Sign Up</Link>
           </div>
 
-          {
-            error && (
-              <Alert className="mt-3 bg-red-100">
-                   <p> {error}</p>
-              </Alert>
-            )
-          }
+         
 
 
         </div>

@@ -158,7 +158,7 @@ const handleDeleteComment= async()=>{
         <Modal.Body>
           <div className="text-center">
             <HiOutlineExclamationCircle className="h-14 w-32 text-gray-400 dark:text-gray-200 mb-4 mx-auto"></HiOutlineExclamationCircle>
-            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this post </h3>
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this Comment </h3>
             <div className="flex justify-between">
               <Button color="failure" onClick={handleDeleteComment} > Yes , I'm sure</Button>
               <Button color="gray" onClick={()=>setshowmodal(false)}> No, cancel</Button>
