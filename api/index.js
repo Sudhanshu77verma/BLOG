@@ -7,12 +7,18 @@ import cookieParser from 'cookie-parser';
 import PostRouter from './routes/post.route.js'
 import commentRouter from './routes/comment.route.js'
 import path from 'path'
+
+
 dotenv.config();
 
 const app=express();
 
 
-mongoose.connect(process.env.MONGO).then(()=>{
+mongoose.connect(process.env.MONGO,{
+    useNewUrlParser: true,
+    useUnifiedTopology:true,
+
+}).then(()=>{
     console.log(" Mongo db connection is successful")
 }).catch((error)=>{
     console.log(error)
