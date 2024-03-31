@@ -1,6 +1,6 @@
 import  express  from "express";
 import { createComment, getcomment, getpostcomments, likeComment,editComment,deleteComment } from "../controller/comment.controller.js";
-import { VerifyToken } from "../utils/VerifyUser.js";
+import { VerifyToken } from "../utils/verifyUser.js";
 
 
 

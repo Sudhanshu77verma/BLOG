@@ -1,6 +1,6 @@
 import express from "express"
 import { deleteuser, getuser, getusers, signout, updateUser } from "../controller/user.controller.js";
-import { VerifyToken } from "../utils/VerifyUser.js";
+import { VerifyToken } from "../utils/verifyUser.js";
 
 
 
